@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>US Oil Updates</title>
+    <link>https://yourusername.github.io/us-oil-feed/feed.xml</link>
+    <description>Daily and weekly US oil updates from ChatGPT</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 26 Sep 2025 09:00:00 +0100</lastBuildDate>
+
+    <!-- Example item -->
+    <item>
+      <title>Daily Update - Sep 26, 2025</title>
+      <description>Oil prices fell 1.5% as OPEC+ considers a new output hike. U.S. inventories steady, traders cautious on Middle East flows.</description>
+      <pubDate>Fri, 26 Sep 2025 09:00:00 +0100</pubDate>
+      <guid>daily-2025-09-26</guid>
+    </item>
+
+  </channel>
+</rss>
