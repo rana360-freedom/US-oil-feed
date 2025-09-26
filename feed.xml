@@ -1,19 +1,36 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
-  <channel>
-    <title>US Oil Updates</title>
-    <link>https://yourusername.github.io/us-oil-feed/feed.xml</link>
-    <description>Daily and weekly US oil updates from ChatGPT</description>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 26 Sep 2025 09:00:00 +0100</lastBuildDate>
+name: Update RSS Feed
 
-    <!-- Example item -->
-    <item>
-      <title>Daily Update - Sep 26, 2025</title>
-      <description>Oil prices fell 1.5% as OPEC+ considers a new output hike. U.S. inventories steady, traders cautious on Middle East flows.</description>
-      <pubDate>Fri, 26 Sep 2025 09:00:00 +0100</pubDate>
-      <guid>daily-2025-09-26</guid>
-    </item>
+on:
+  schedule:
+    - cron: "0 8 * * *"     # Daily at 9 AM Lagos
+    - cron: "0 16 * * FRI"  # Weekly at 5 PM Lagos
+  workflow_dispatch:
 
-  </channel>
-</rss>
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run update script (daily or weekly)
+        run: |
+          if [ "$(date +%u)" -eq 5 ] && [ "$(date +%H)" -eq 16 ]; then
+            python update_feed.py weekly
+          else
+            python update_feed.py daily
+          fi
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add feed.xml
+          git commit -m "Automated update"
+          git push
